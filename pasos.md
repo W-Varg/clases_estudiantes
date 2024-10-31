@@ -31,4 +31,19 @@
     
     agregar el modulo al archivo app.module.ts
 
-9
+9 buenas practicas de git
+    - crear main, dev, mi_rama_personal
+
+10 crear el CRUD
+    - crear el estudiante
+        - model
+        - dto de entrada
+        - configurar validaciones
+          - utilizar decoradores de class-validator https://github.com/typestack/class-validator
+        - codificar los servicios crud en nuestro .service.ts
+        - inicializar el service en nuestro .controller.ts
+
+11 conectar con la base de datos
+    - configurar mongoose(mongodb)
+    - guardado de datos
+    - dto de respuesta(respuesta)
