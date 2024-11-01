@@ -3,9 +3,14 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { EstudiantesModule } from './estudiantes/estudiantes.module';
+import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
-  imports: [ConfigModule.forRoot(), EstudiantesModule],
+  imports: [
+    ConfigModule.forRoot(),
+    EstudiantesModule,
+    MongooseModule.forRoot('mongodb://localhost:27017/clase_asistencia'),
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

@@ -45,5 +45,11 @@
 
 11 conectar con la base de datos
     - configurar mongoose(mongodb)
-    - guardado de datos
+    - la colleccion (model, schema, document) -> (estudiante)
+    - implementar la collecion para su uso, utilizando moongoosemodule.forfeature(estudiante)
+    - injectar el cliente(estudianteCollection) de mongo para utilizarlo en el service    
+        - guardado de datos
+        - recuperar datos
+        - actualizar datos
+        - borrar datos
     - dto de respuesta(respuesta)

@@ -20,7 +20,7 @@ export class EstudianteDatosEntrada {
   @Length(5, 10, { message: 'carnet de identidad debe ser mayor a 5 y menor a 10 caracteres' }) // 135135-1N
   @IsString({ message: 'carnet de identidad debe ser una cadena de texto' })
   @ApiProperty()
-  carnetIdentidad: string;
+  carnet_identidad: string;
 
   @IsNotEmpty({ message: 'nombre es requerido' })
   @IsString({ message: 'nombre debe ser una cadena de texto' })

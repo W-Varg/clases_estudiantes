@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
 import { EstudianteDatosEntrada } from './dto/estudiante.input.dto';
 import { EstudiantesService } from './estudiantes.service';
 
@@ -15,5 +15,17 @@ export class EstudiantesController {
   @Get('') // method
   listar() {
     return this.serviceStd.listarEstudiantes();
+  }
+
+  @Patch(':id') // method
+  actualizar(@Param('id') id: string) {
+    const respuesta = this.serviceStd.actualizarEstudiante(id);
+    return respuesta;
+  }
+
+  @Delete(':id') // method
+  eliminar(@Param('id') id: string) {
+    const respuesta = this.serviceStd.eliminarEstudiante(id);
+    return respuesta;
   }
 }
