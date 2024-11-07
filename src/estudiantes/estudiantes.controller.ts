@@ -1,5 +1,8 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
-import { EstudianteDatosEntrada } from './dto/estudiante.input.dto';
+import {
+  EstudianteDatosEntrada,
+  EstudianteDatosEntradaActualizar,
+} from './dto/estudiante.input.dto';
 import { EstudiantesService } from './estudiantes.service';
 
 @Controller('estudiantes')
@@ -17,9 +20,12 @@ export class EstudiantesController {
     return this.serviceStd.listarEstudiantes();
   }
 
-  @Patch(':id') // method
-  actualizar(@Param('id') id: string) {
-    const respuesta = this.serviceStd.actualizarEstudiante(id);
+  @Patch(':identificador') // method
+  actualizar(
+    @Param('identificador') id: string,
+    @Body() datosPaActualizar: EstudianteDatosEntradaActualizar,
+  ) {
+    const respuesta = this.serviceStd.actualizarEstudiante(id, datosPaActualizar);
     return respuesta;
   }
 

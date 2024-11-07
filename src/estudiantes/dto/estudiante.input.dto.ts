@@ -1,4 +1,4 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, PartialType } from '@nestjs/swagger';
 import {
   Equals,
   IsBoolean,
@@ -80,3 +80,5 @@ export class EstudianteDatosEntrada {
   })
   tieneWhatsapp?: boolean;
 }
+
+export class EstudianteDatosEntradaActualizar extends PartialType(EstudianteDatosEntrada) {}

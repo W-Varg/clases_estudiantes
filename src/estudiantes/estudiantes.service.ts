@@ -1,5 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { EstudianteDatosEntrada } from './dto/estudiante.input.dto';
+import {
+  EstudianteDatosEntrada,
+  EstudianteDatosEntradaActualizar,
+} from './dto/estudiante.input.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { EstudianteModel } from './estudiante.model';
 import { Model } from 'mongoose';
@@ -66,11 +69,17 @@ export class EstudiantesService {
     return listaEstudiantesResult;
   }
 
-  async actualizarEstudiante(id: string) {
+  async actualizarEstudiante(id: string, datosEntradaUpdate: EstudianteDatosEntradaActualizar) {
     const estudianteEncontrado = await this.estudianteCollection.findById(id);
     if (estudianteEncontrado) {
+      console.log(datosEntradaUpdate);
+
+      estudianteEncontrado.direccion = datosEntradaUpdate.direccion;
+      estudianteEncontrado.sexo = datosEntradaUpdate.sexo;
       estudianteEncontrado.tieneWhatsapp = !estudianteEncontrado.tieneWhatsapp;
-      return await this.estudianteCollection.updateOne({ _id: id }, estudianteEncontrado).exec();
+      return await this.estudianteCollection
+        .findOneAndUpdate({ _id: id }, estudianteEncontrado)
+        .exec();
     } else {
       throw new Error('No se encontro el estudiante');
     }
