@@ -69,26 +69,39 @@ export class EstudiantesService {
     return listaEstudiantesResult;
   }
 
+  async detalleEstudiante(id: string) {
+    return await this.estudianteCollection.findById(id);
+  }
+
   async actualizarEstudiante(id: string, datosEntradaUpdate: EstudianteDatosEntradaActualizar) {
     const estudianteEncontrado = await this.estudianteCollection.findById(id);
     if (estudianteEncontrado) {
       console.log(datosEntradaUpdate);
 
+      estudianteEncontrado.nombre = datosEntradaUpdate.nombre;
+      estudianteEncontrado.segundoNombre = datosEntradaUpdate.segundoNombre;
+      estudianteEncontrado.carnetIdentidad = datosEntradaUpdate.carnet_identidad;
+      estudianteEncontrado.apellidoPaterno = datosEntradaUpdate.apellidoPaterno;
+      estudianteEncontrado.apellidoMaterno = datosEntradaUpdate.apellidoMaterno;
+      estudianteEncontrado.email = datosEntradaUpdate.email;
+      estudianteEncontrado.nroCelular = datosEntradaUpdate.nroCelular;
       estudianteEncontrado.direccion = datosEntradaUpdate.direccion;
       estudianteEncontrado.sexo = datosEntradaUpdate.sexo;
       estudianteEncontrado.tieneWhatsapp = !estudianteEncontrado.tieneWhatsapp;
-      return await this.estudianteCollection
-        .findOneAndUpdate({ _id: id }, estudianteEncontrado)
-        .exec();
+
+      await estudianteEncontrado.save(); // guardar
+
+      return await this.estudianteCollection.findOne({ _id: id }).exec();
     } else {
       throw new Error('No se encontro el estudiante');
     }
   }
 
-  eliminarEstudiante(id: string) {
-    const estudianteEncontrado = this.estudianteCollection.findById(id);
+  async eliminarEstudiante(id: string) {
+    const estudianteEncontrado = await this.estudianteCollection.findById(id); // retardo
     if (estudianteEncontrado) {
-      return this.estudianteCollection.deleteOne({ id }).exec();
+      const result = await this.estudianteCollection.deleteOne({ _id: id }).exec();
+      return result;
     } else {
       throw new Error('No se encontro el estudiante');
     }

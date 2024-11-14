@@ -20,6 +20,11 @@ export class EstudiantesController {
     return this.serviceStd.listarEstudiantes();
   }
 
+  @Get(':identificador') // method
+  detalle(@Param('identificador') _id: string) {
+    return this.serviceStd.detalleEstudiante(_id);
+  }
+
   @Patch(':identificador') // method
   actualizar(
     @Param('identificador') id: string,
@@ -30,8 +35,8 @@ export class EstudiantesController {
   }
 
   @Delete(':id') // method
-  eliminar(@Param('id') id: string) {
-    const respuesta = this.serviceStd.eliminarEstudiante(id);
+  eliminar(@Param('id') _id: string) {
+    const respuesta = this.serviceStd.eliminarEstudiante(_id);
     return respuesta;
   }
 }
