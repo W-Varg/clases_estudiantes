@@ -69,6 +69,28 @@ export class EstudiantesService {
     return listaEstudiantesResult;
   }
 
+  async buscarEstudiante(carnetIdentidad?: string, nombreOApellido?: string) {
+    if (carnetIdentidad && carnetIdentidad.length >= 1) {
+      const estudiantes = await this.estudianteCollection.find({
+        carnetIdentidad: carnetIdentidad,
+      });
+      return estudiantes;
+    }
+
+    if (nombreOApellido && nombreOApellido.length >= 1) {
+      const estudiantes = await this.estudianteCollection.find({
+        $or: [
+          { nombre: { $regex: nombreOApellido, $options: 'i' } },
+          { apellidoPaterno: { $regex: nombreOApellido, $options: 'i' } },
+          { apellidoMaterno: { $regex: nombreOApellido, $options: 'i' } },
+        ],
+      });
+      return estudiantes;
+    }
+
+    return await this.estudianteCollection.find({});
+  }
+
   async detalleEstudiante(id: string) {
     return await this.estudianteCollection.findById(id);
   }

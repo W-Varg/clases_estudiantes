@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
 import {
   EstudianteDatosEntrada,
   EstudianteDatosEntradaActualizar,
@@ -18,6 +18,11 @@ export class EstudiantesController {
   @Get('') // method
   listar() {
     return this.serviceStd.listarEstudiantes();
+  }
+
+  @Get('search') // method
+  buscar(@Query('numero-documento') ci?: string, @Query('texto') nombreOApellido?: string) {
+    return this.serviceStd.buscarEstudiante(ci, nombreOApellido);
   }
 
   @Get(':identificador') // method
