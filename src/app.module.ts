@@ -4,12 +4,14 @@ import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { EstudiantesModule } from './estudiantes/estudiantes.module';
 import { MongooseModule } from '@nestjs/mongoose';
+import { MateriasModule } from './materias/materias.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
     EstudiantesModule,
     MongooseModule.forRoot('mongodb://localhost:27017/clase_asistencia'),
+    MateriasModule,
   ],
   controllers: [AppController],
   providers: [AppService],
