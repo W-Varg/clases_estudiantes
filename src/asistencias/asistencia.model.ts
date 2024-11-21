@@ -9,10 +9,10 @@ export class Asistencia {
   fechaClase: Date;
 
   @Prop({ type: Types.ObjectId, ref: 'Materia', required: true })
-  materia: Types.ObjectId;
+  'materia': Types.ObjectId; // ref de tipo cadena
 
   @Prop({ type: Types.ObjectId, ref: 'EstudianteModel', required: true })
-  estudiante: Types.ObjectId; // string
+  'estudiante': Types.ObjectId; // ref de tipo cadena
 
   @Prop({ required: true })
   semestre: number;

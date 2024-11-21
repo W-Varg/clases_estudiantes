@@ -54,7 +54,7 @@ export class AsistenciasService {
   findAll() {
     return this.asistenciaCollection
       .find()
-      .populate('materia', 'nombre id')
+      .populate('materia', 'id nombre')
       .populate('estudiante', 'id carnetIdentidad nombre')
       .exec();
   }
