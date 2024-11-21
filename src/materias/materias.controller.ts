@@ -12,22 +12,22 @@ export class MateriasController {
     return this.materiasService.create(createMateriaDto);
   }
 
-  @Get()
+  @Get('listar')
   findAll() {
     return this.materiasService.findAll();
   }
 
-  @Get(':id')
+  @Get('detalle/:id')
   findOne(@Param('id') id: string) {
     return this.materiasService.findOne(id);
   }
 
-  @Patch(':id')
+  @Patch('actualizar/:id')
   update(@Param('id') id: string, @Body() updateMateriaDto: UpdateMateriaDto) {
     return this.materiasService.update(id, updateMateriaDto);
   }
 
-  @Delete(':id')
+  @Delete('eliminar/:id')
   remove(@Param('id') id: string) {
     return this.materiasService.remove(id);
   }

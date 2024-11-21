@@ -5,6 +5,7 @@ import { ConfigModule } from '@nestjs/config';
 import { EstudiantesModule } from './estudiantes/estudiantes.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { MateriasModule } from './materias/materias.module';
+import { AsistenciasModule } from './asistencias/asistencias.module';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { MateriasModule } from './materias/materias.module';
     EstudiantesModule,
     MongooseModule.forRoot('mongodb://localhost:27017/clase_asistencia'),
     MateriasModule,
+    AsistenciasModule,
   ],
   controllers: [AppController],
   providers: [AppService],
