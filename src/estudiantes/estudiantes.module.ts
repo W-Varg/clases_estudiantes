@@ -8,5 +8,6 @@ import { EstudianteModel, EstudianteSchema } from './estudiante.model';
   imports: [MongooseModule.forFeature([{ name: EstudianteModel.name, schema: EstudianteSchema }])],
   controllers: [EstudiantesController],
   providers: [EstudiantesService],
+  exports: [EstudiantesService],
 })
 export class EstudiantesModule {}
