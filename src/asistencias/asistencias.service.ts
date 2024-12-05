@@ -38,8 +38,10 @@ export class AsistenciasService {
         materia: materiaEncontrada.id,
         estudiante: estudianteEncontrado.id,
         semestre: createAsistenciaDto.semestre,
-        prefesor: createAsistenciaDto.docenteNombre,
+        profesor: createAsistenciaDto.docenteNombre,
       });
+
+      datosACrear.profesor = createAsistenciaDto.docenteNombre;
 
       const asistenciaRegistrada = await datosACrear.save();
       return asistenciaRegistrada;

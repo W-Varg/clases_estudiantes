@@ -17,8 +17,8 @@ export class Asistencia {
   @Prop({ required: true })
   semestre: number;
 
-  @Prop()
-  prefesor: string;
+  @Prop({ type: String, required: false })
+  profesor?: string;
 }
 
 export const AsistenciaSchema = SchemaFactory.createForClass(Asistencia);
