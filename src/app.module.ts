@@ -7,13 +7,13 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { MateriasModule } from './materias/materias.module';
 import { AsistenciasModule } from './asistencias/asistencias.module';
 import { ReportModule } from './report/report.module';
-import { AutenticacionModule } from './autenticacion/autenticacion.module';
+import { AutenticacionModule } from './auth/autenticacion.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
     EstudiantesModule,
-    MongooseModule.forRoot('mongodb://localhost:27017/clase_asistencia'),
+    MongooseModule.forRoot(process.env.MONGO_DB_URL),
     MateriasModule,
     AsistenciasModule,
     ReportModule,
