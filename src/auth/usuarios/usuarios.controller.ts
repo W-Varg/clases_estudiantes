@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Body } from '@nestjs/common';
 import { UsuariosService } from './usuarios.service';
-import { CreateUsuarioDto } from './dto/create-usuario.dto';
+import { CreateUsuarioDto, LoginDTO } from './dto/create-usuario.dto';
 
 @Controller('usuarios')
 export class UsuariosController {
@@ -9,6 +9,11 @@ export class UsuariosController {
   @Post('registrar')
   create(@Body() createUsuarioDto: CreateUsuarioDto) {
     return this.usuariosService.registrarUsuario(createUsuarioDto);
+  }
+
+  @Post('login')
+  login(@Body() loginDTO: LoginDTO) {
+    return this.usuariosService.login(loginDTO);
   }
 
   @Get('listar')

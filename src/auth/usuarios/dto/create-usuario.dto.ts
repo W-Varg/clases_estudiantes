@@ -45,3 +45,18 @@ export class CreateUsuarioDto {
   @ApiProperty({ required: false })
   lastName?: string;
 }
+
+export class LoginDTO {
+  @IsEmail({}, { message: 'Correo electrónico inválido' })
+  @IsString({ message: 'El correo electrónico debe ser una cadena de texto' })
+  @IsNotEmpty({ message: 'El correo electrónico es requerido y no puede estar vacío' })
+  @ApiProperty()
+  email: string;
+
+  @MaxLength(50, { message: 'La contraseña debe tener como máximo 50 caracteres' })
+  @MinLength(4, { message: 'La contraseña debe tener al menos 6 caracteres' })
+  @IsString({ message: 'La contraseña debe ser una cadena de texto' })
+  @IsNotEmpty({ message: 'La contraseña es requerida y no puede estar vacía' })
+  @ApiProperty()
+  password: string;
+}
