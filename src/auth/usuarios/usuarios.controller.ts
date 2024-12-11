@@ -1,6 +1,8 @@
-import { Controller, Get, Post, Body } from '@nestjs/common';
+import { Controller, Get, Post, Body, UseGuards } from '@nestjs/common';
 import { UsuariosService } from './usuarios.service';
 import { CreateUsuarioDto, LoginDTO } from './dto/create-usuario.dto';
+import { ApiBearerAuth } from '@nestjs/swagger';
+import { AuthGuard } from './auth.guard';
 
 @Controller('usuarios')
 export class UsuariosController {
@@ -17,7 +19,10 @@ export class UsuariosController {
   }
 
   @Get('listar')
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard)
   findAll() {
+    // se ejecuta antes de ingresar a esta linea de codigo
     return this.usuariosService.findAll();
   }
 
