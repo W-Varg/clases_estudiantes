@@ -3,13 +3,23 @@ import { CreateRoleDto, UpdateRoleDto } from './dto/roles.input.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Role, RoleDocument } from './role.model';
 import { Model } from 'mongoose';
+import { permisosArray } from '../permisos/permisos.array';
 
 @Injectable()
 export class RolesService {
   constructor(@InjectModel(Role.name) private readonly roleCollection: Model<RoleDocument>) {}
 
   async create(createRoleDto: CreateRoleDto) {
-    const roleACrear = new this.roleCollection({ nombre: createRoleDto.nombre });
+    // solo tomando en cuenta los permisos que coincidenc con el array de permisos definidos
+    const permisosEncontrados = permisosArray.filter((permiso) =>
+      createRoleDto.permisos.includes(permiso),
+    );
+
+    const roleACrear = new this.roleCollection({
+      nombre: createRoleDto.nombre,
+      permisos: permisosEncontrados,
+    });
+
     const rolCreado = await roleACrear.save();
     return rolCreado;
   }
@@ -23,7 +33,15 @@ export class RolesService {
   }
 
   async update(id: string, updateRoleDto: UpdateRoleDto) {
-    await this.roleCollection.updateOne({ _id: id }, updateRoleDto);
+    // solo tomando en cuenta los permisos que coincidenc con el array de permisos definidos
+    const permisosEncontrados = permisosArray.filter((permiso) =>
+      updateRoleDto.permisos.includes(permiso),
+    );
+
+    await this.roleCollection.updateOne(
+      { _id: id },
+      { ...updateRoleDto, permisos: permisosEncontrados },
+    );
     return this.roleCollection.findById(id);
   }
 

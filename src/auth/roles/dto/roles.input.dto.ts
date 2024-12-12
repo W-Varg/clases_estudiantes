@@ -9,6 +9,9 @@ export class CreateRoleDto {
   @IsNotEmpty({ message: 'El rol es requerida y no puede estar vacía' })
   @ApiProperty()
   nombre: string;
+
+  @ApiProperty({ isArray: true, type: [String], required: false })
+  permisos?: string[];
 }
 
 export class UpdateRoleDto extends PartialType(CreateRoleDto) {}

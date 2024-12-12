@@ -7,6 +7,9 @@ export type RoleDocument = HydratedDocument<Role>;
 export class Role {
   @Prop({ required: true })
   nombre: string;
+
+  @Prop({ required: false })
+  permisos?: string[];
 }
 
 export const RoleSchema = SchemaFactory.createForClass(Role);

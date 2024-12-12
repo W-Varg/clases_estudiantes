@@ -66,7 +66,7 @@ export class UsuariosService {
         email: existeUsuario.email,
         nombre: existeUsuario.firstName,
       },
-      { expiresIn: '1m' },
+      { expiresIn: '30m' },
     );
 
     // devolver algunos datos del usuario
