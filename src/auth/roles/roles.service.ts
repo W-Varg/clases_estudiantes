@@ -1,26 +1,33 @@
 import { Injectable } from '@nestjs/common';
-import { CreateRoleDto } from './dto/create-role.dto';
-import { UpdateRoleDto } from './dto/update-role.dto';
+import { CreateRoleDto, UpdateRoleDto } from './dto/roles.input.dto';
+import { InjectModel } from '@nestjs/mongoose';
+import { Role, RoleDocument } from './role.model';
+import { Model } from 'mongoose';
 
 @Injectable()
 export class RolesService {
-  create(createRoleDto: CreateRoleDto) {
-    return 'This action adds a new role';
+  constructor(@InjectModel(Role.name) private readonly roleCollection: Model<RoleDocument>) {}
+
+  async create(createRoleDto: CreateRoleDto) {
+    const roleACrear = new this.roleCollection({ nombre: createRoleDto.nombre });
+    const rolCreado = await roleACrear.save();
+    return rolCreado;
   }
 
   findAll() {
-    return `This action returns all roles`;
+    return this.roleCollection.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} role`;
+  findOne(id: string) {
+    return this.roleCollection.findById(id);
   }
 
-  update(id: number, updateRoleDto: UpdateRoleDto) {
-    return `This action updates a #${id} role`;
+  async update(id: string, updateRoleDto: UpdateRoleDto) {
+    await this.roleCollection.updateOne({ _id: id }, updateRoleDto);
+    return this.roleCollection.findById(id);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} role`;
+  remove(id: string) {
+    return this.roleCollection.deleteOne({ _id: id });
   }
 }
