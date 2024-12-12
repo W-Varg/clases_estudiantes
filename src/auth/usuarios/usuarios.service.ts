@@ -1,15 +1,17 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { CreateUsuarioDto, LoginDTO } from './dto/create-usuario.dto';
+import { CreateUsuarioDto, LoginDTO, UpdateUsuarioDto } from './dto/create-usuario.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Usuario, UsuarioDocument } from './usuarios.model';
 import { Model } from 'mongoose';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
+import { Role, RoleDocument } from '../roles/role.model';
 
 @Injectable()
 export class UsuariosService {
   constructor(
     @InjectModel(Usuario.name) private readonly usuarioCollection: Model<UsuarioDocument>,
+    @InjectModel(Role.name) private readonly rolesCollecion: Model<RoleDocument>,
     private jwtService: JwtService,
   ) {}
 
@@ -82,9 +84,20 @@ export class UsuariosService {
   //   return `This action returns a #${id} usuario`;
   // }
 
-  // update(id: number, updateUsuarioDto: UpdateUsuarioDto) {
-  //   return `This action updates a #${id} usuario`;
-  // }
+  async update(id: string, updateUsuarioDto: UpdateUsuarioDto) {
+    const rolesExistentes = await this.rolesCollecion
+      .find({ _id: { $in: updateUsuarioDto.rolesIds } })
+      .select('_id')
+      .exec();
+
+    const idsLimpios = rolesExistentes.map((r) => r._id);
+
+    await this.usuarioCollection.updateOne(
+      { _id: id },
+      { ...updateUsuarioDto, rolesIds: idsLimpios },
+    );
+    return await this.usuarioCollection.findById(id);
+  }
 
   // remove(id: number) {
   //   return `This action removes a #${id} usuario`;

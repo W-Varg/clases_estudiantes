@@ -19,6 +19,9 @@ export class Usuario {
 
   @Prop({ default: true, required: false })
   isActive: boolean;
+
+  @Prop({ type: [String], required: false })
+  rolesIds?: string[];
 }
 
 export const UsuarioSchema = SchemaFactory.createForClass(Usuario);

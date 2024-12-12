@@ -1,6 +1,6 @@
-import { Controller, Get, Post, Body, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, UseGuards, Patch, Param } from '@nestjs/common';
 import { UsuariosService } from './usuarios.service';
-import { CreateUsuarioDto, LoginDTO } from './dto/create-usuario.dto';
+import { CreateUsuarioDto, LoginDTO, UpdateUsuarioDto } from './dto/create-usuario.dto';
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { AuthGuard } from './auth.guard';
 
@@ -31,10 +31,10 @@ export class UsuariosController {
   //   return this.usuariosService.findOne(+id);
   // }
 
-  // @Patch(':id')
-  // update(@Param('id') id: string, @Body() updateUsuarioDto: UpdateUsuarioDto) {
-  //   return this.usuariosService.update(+id, updateUsuarioDto);
-  // }
+  @Patch(':id')
+  update(@Param('id') id: string, @Body() updateUsuarioDto: UpdateUsuarioDto) {
+    return this.usuariosService.update(id, updateUsuarioDto);
+  }
 
   // @Delete(':id')
   // remove(@Param('id') id: string) {

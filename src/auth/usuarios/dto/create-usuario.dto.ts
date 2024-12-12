@@ -1,4 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { PartialType } from '@nestjs/swagger';
+
 import {
   IsEmail,
   IsNotEmpty,
@@ -59,4 +61,12 @@ export class LoginDTO {
   @IsNotEmpty({ message: 'La contraseña es requerida y no puede estar vacía' })
   @ApiProperty()
   password: string;
+}
+
+/* ------------------------------------------------------------------------------------------------------------------ */
+/*                                                dto de acutualizacion                                               */
+/* ------------------------------------------------------------------------------------------------------------------ */
+export class UpdateUsuarioDto extends PartialType(CreateUsuarioDto) {
+  @ApiProperty({ isArray: true, type: [String], required: false })
+  rolesIds?: string[];
 }
